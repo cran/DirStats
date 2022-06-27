@@ -1,8 +1,8 @@
 Package: DirStats
 Type: Package
 Title: Nonparametric Methods for Directional Data
-Version: 0.1.7
-Date: 2021-01-09
+Version: 0.1.8
+Date: 2022-06-27
 Authors@R: person(given = "Eduardo", family = "García-Portugués",
                   role = c("aut", "cre"), email = "edgarcia@est-econ.uc3m.es",
                   comment = c(ORCID = "0000-0002-9224-4111"))
@@ -20,11 +20,11 @@ Suggests: viridisLite
 URL: https://github.com/egarpor/DirStats
 BugReports: https://github.com/egarpor/DirStats
 Encoding: UTF-8
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.0
 NeedsCompilation: yes
-Packaged: 2021-01-09 22:43:35 UTC; Eduardo
+Packaged: 2022-06-27 19:26:40 UTC; Eduardo
 Author: Eduardo García-Portugués [aut, cre]
     (<https://orcid.org/0000-0002-9224-4111>)
 Maintainer: Eduardo García-Portugués <edgarcia@est-econ.uc3m.es>
 Repository: CRAN
-Date/Publication: 2021-01-10 05:10:17 UTC
+Date/Publication: 2022-06-27 22:20:10 UTC

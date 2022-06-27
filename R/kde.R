@@ -97,7 +97,7 @@ kde_dir <- function(x, data, h, L = NULL) {
     data_dir <- matrix(as.double(data), nrow = n, ncol = q + 1)
 
     # Call to kde_dir
-    kde <- .Fortran("kde_dir_vmf", x = x, daa_dir = data_dir,
+    kde <- .Fortran("kde_dir_vmf", x = x, data_dir = data_dir,
                     h = as.double(h), ch = as.double(ch),
                     n = as.integer(n), q = as.integer(q),
                     nx = as.integer(nx), kde = double(nx))$kde
@@ -124,7 +124,7 @@ c_h <- function(h, q, L = NULL) {
 
     # Analytical expression
     ch <- (2 * pi)^((q + 1)/2) * h^(q - 1) *
-      besselI(x = 1/h^2, nu = (q - 1)/2, expon.scaled = TRUE)
+      besselI(x = 1 / h^2, nu = (q - 1) / 2, expon.scaled = TRUE)
 
   } else {
 
@@ -226,4 +226,3 @@ d_L <- function(L = NULL, q) {
   return(d)
 
 }
-

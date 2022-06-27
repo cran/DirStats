@@ -238,7 +238,7 @@ bic_vmf_mix <- function(data, M_bound = ceiling(log(nrow(data))), M_neig = 3,
 #' @return Selected bandwidth for \code{bw_dir_rot} and \code{bw_dir_ami}.
 #' \code{bw_dir_emi} returns a list with entries:
 #' \itemize{
-#'   \item{\code{h_opt}: cross-validation bandwidth.}
+#'   \item{\code{h_opt}: selected bandwidth.}
 #'   \item{\code{h_grid}: \code{h_grid}, if used (otherwise \code{NULL}).}
 #'   \item{\code{MISE_opt}: minimum of the MISE loss.}
 #'   \item{\code{MISE_grid}: value of the MISE function at \code{h_grid}, if
@@ -307,9 +307,14 @@ bw_dir_rot <- function(data) {
 
   } else if (q == 2) {
 
-    num <- 8 * sinh(kappa)^2
-    den <- (-2 * kappa * cosh(2 * kappa) +
-              (1 + 4 * kappa^2) * sinh(2 * kappa)) * n
+    e <- exp(-2 * kappa)
+    e2 <- e^2
+    sinh_scaled <- 0.5 * (1 - e)
+    cosh_scaled2 <- 0.5 * (1 + e2)
+    sinh_scaled2 <- 0.5 * (1 - e2)
+    num <- 8 * sinh_scaled^2
+    den <- kappa * (-2 * kappa * cosh_scaled2 +
+                      (1 + 4 * kappa^2) * sinh_scaled2) * n
     # Caution! Typo in G-P (2013) in equation (6) for q = 2. It displays an
     # incorrect extra kappa:
     # * WRONG:    kappa * (1 + 4 * kappa^2) * sinh(2 * kappa)
@@ -317,14 +322,16 @@ bw_dir_rot <- function(data) {
 
   } else {
 
-    num <- 4 * sqrt(pi) * besselI(nu = (q - 1) / 2, x = kappa)^2
-    den <- kappa^((q + 1)/2) *
-      (2 * q * besselI(nu = (q + 1) / 2, x = 2 * kappa) +
-         (2 + q) * kappa * besselI(nu = (q + 3) / 2, x = 2 * kappa)) * n
+    num <- 4 * sqrt(pi) * besselI(nu = (q - 1) / 2, x = kappa,
+                                  expon.scaled = TRUE)^2
+    den <- kappa^((q + 1) / 2) *
+      (2 * q * besselI(nu = (q + 1) / 2, x = 2 * kappa, expon.scaled = TRUE) +
+         (2 + q) * kappa * besselI(nu = (q + 3) / 2, x = 2 * kappa,
+                                   expon.scaled = TRUE)) * n
 
   }
 
-  return((num/den) ^ (1 / (q + 4)))
+  return((num / den)^(1 / (q + 4)))
 
 }
 
@@ -382,7 +389,7 @@ R_Psi_mixvmf <- function(q, mu, kappa, p) {
     q <- length(mu) - 1
     log_const <- rotasym::c_vMF(p = q + 1, kappa = kappa, log = TRUE)
     Psi <- drop(kappa * exp(log_const + kappa * x %*% mu) *
-                  (-x %*% mu + kappa/q * (1 - (x %*% mu)^2)))
+                  (-x %*% mu + kappa / q * (1 - (x %*% mu)^2)))
     return(Psi)
 
   }
@@ -405,7 +412,7 @@ R_Psi_mixvmf <- function(q, mu, kappa, p) {
     # Curvature integrand
     integrand <- function(x) {
 
-      rowSums(sapply(1:length(p), function(i)
+      rowSums(sapply(seq_along(p), function(i)
         Psi_vmf(x = x, mu = mu[i, ], kappa = kappa[i])
       ) %*% p)^2
 
