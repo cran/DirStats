@@ -1,6 +1,6 @@
-59b9442bb718bbdd9847910b89b32f28 *DESCRIPTION
+23a55ba1e5dcaf44c071c53621a7dd01 *DESCRIPTION
 511a6cc232efad8b3b085cfb448dee57 *NAMESPACE
-4f18fc10b5fc5826a35d204439edf927 *NEWS.md
+cb5cd7d7868c32e62aa02d936eb755b1 *NEWS.md
 ad7f8136f92b2a993ed876a2c03dc334 *R/DirStats-package.R
 98d7a97c0f80ace8d495f589458fa258 *R/bw-cv.R
 45b1efe84cfa5a975241fa1bf52f2464 *R/bw-pi.R
@@ -24,4 +24,4 @@ ec6e2ea07773c5b919d3ae343be72588 *man/vmf.Rd
 d58432693e6f20045de0fa0ad0be1cf0 *src/kde_dir_vmf.f90
 7e68002029af04e0a62920351505da4f *src/lcv_dir_vmf.f90
 58a4e0660117f23be4b3196aab53f7a5 *src/lscv_dir_vmf.f90
-c50700cbe00f33cab51fcb5f90a71fc5 *src/ribesl.f90
+56a7594c82db58d526fac16f8d87baf6 *src/ribesl.f90
